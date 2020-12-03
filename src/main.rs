@@ -7,6 +7,9 @@ use std::time::Instant;
 mod day01;
 use day01::Day1Solver;
 
+mod day02;
+use day02::Day2Solver;
+
 mod lib;
 use lib::Solver;
 
@@ -25,6 +28,7 @@ fn get_solver(day: u32) -> (Box<dyn Solver>, String) {
     let file = format!("src/day{:02}/input.txt", day);
     let solver: Box<dyn Solver> = match day {
         1 => Box::new(Day1Solver {}),
+        2 => Box::new(Day2Solver {}),
         n => panic!("The solver for day {} has not been implemented", n),
     };
     (solver, file)
