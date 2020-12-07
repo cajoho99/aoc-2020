@@ -147,7 +147,7 @@ fn parse_pass(input: &String) -> Passport {
 }
 
 impl Solver for Day4Solver {
-	fn solve(&self, lines: Vec<String>, part_two: bool) -> String {
+	fn solve(&self, lines: &[String], part_two: bool) -> String {
 		let mut passports: Vec<String> = vec![];
 		let mut current: Vec<String> = vec![];
 		let mut counter: usize = 0;
@@ -157,7 +157,7 @@ impl Solver for Day4Solver {
 				current = vec![];
 				continue;
 			} else {
-				current.append(&mut vec![line]);
+				current.append(&mut vec![line.clone()]);
 			}
 		}
 		if current.len() != 0 {
@@ -179,6 +179,8 @@ impl Solver for Day4Solver {
 #[cfg(test)]
 mod tests {
 	use super::*;
+	use crate::lib::read_lines;
+	use test::Bencher;
 
 	#[test]
 	fn part_one_test_cases() {
@@ -199,7 +201,7 @@ mod tests {
 		];
 		let solver: Day4Solver = Day4Solver {};
 
-		assert_eq!(solver.solve(input, false), "2");
+		assert_eq!(solver.solve(&input, false), "2");
 	}
 
 	#[test]
@@ -235,7 +237,21 @@ mod tests {
 		];
 		let solver: Day4Solver = Day4Solver {};
 
-		assert_eq!(solver.solve(invalid_input, true), "0");
-		assert_eq!(solver.solve(valid_input, true), "4");
+		assert_eq!(solver.solve(&invalid_input, true), "0");
+		assert_eq!(solver.solve(&valid_input, true), "4");
+	}
+
+	#[bench]
+	fn bench_part_one(bencher: &mut Bencher) {
+		let input = read_lines("src/day04/input.txt");
+		let solver = Day4Solver {};
+		bencher.iter(|| solver.solve(&input, false));
+	}
+
+	#[bench]
+	fn bench_part_two(bencher: &mut Bencher) {
+		let input = read_lines("src/day04/input.txt");
+		let solver = Day4Solver {};
+		bencher.iter(|| solver.solve(&input, true));
 	}
 }

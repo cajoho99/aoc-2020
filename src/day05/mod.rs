@@ -13,7 +13,7 @@ fn translate(c: char) -> char {
 }
 
 impl Solver for Day5Solver {
-	fn solve(&self, lines: Vec<String>, part_two: bool) -> String {
+	fn solve(&self, lines: &[String], part_two: bool) -> String {
 		let mut max_value = 0;
 		let mut min_value = 1000000;
 		let mut seats: Vec<usize> = vec![];
@@ -50,6 +50,8 @@ impl Solver for Day5Solver {
 #[cfg(test)]
 mod tests {
 	use super::*;
+	use crate::lib::read_lines;
+	use test::Bencher;
 
 	#[test]
 	fn part_one_test_cases() {
@@ -60,6 +62,20 @@ mod tests {
 		];
 		let solver: Day5Solver = Day5Solver {};
 
-		assert_eq!(solver.solve(input, false), "820");
+		assert_eq!(solver.solve(&input, false), "820");
+	}
+
+	#[bench]
+	fn bench_part_one(bencher: &mut Bencher) {
+		let input = read_lines("src/day05/input.txt");
+		let solver = Day5Solver {};
+		bencher.iter(|| solver.solve(&input, false));
+	}
+
+	#[bench]
+	fn bench_part_two(bencher: &mut Bencher) {
+		let input = read_lines("src/day05/input.txt");
+		let solver = Day5Solver {};
+		bencher.iter(|| solver.solve(&input, true));
 	}
 }
