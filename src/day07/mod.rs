@@ -137,14 +137,14 @@ mod tests {
 
 	//#[bench]
 	fn bench_part_one(bencher: &mut Bencher) {
-		let input = read_lines("src/day01/input.txt");
+		let input = read_lines("src/day07/input.txt");
 		let solver = Day7Solver {};
 		bencher.iter(|| solver.solve(&input, false));
 	}
 
 	#[bench]
 	fn bench_part_two(bencher: &mut Bencher) {
-		let input = read_lines("src/day01/input.txt");
+		let input = read_lines("src/day07/input.txt");
 		let solver = Day7Solver {};
 		bencher.iter(|| solver.solve(&input, true));
 	}
